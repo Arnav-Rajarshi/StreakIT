@@ -2,5 +2,5 @@
 .venv/
 .vscode/
 __pycache__/
-database/initial_tests2.py
-database/crud_tests.py
+backend/database/initial_tests2.py
+backend/database/crud_tests.py
