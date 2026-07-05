@@ -1,0 +1,79 @@
+user_name,habit_name,date,started_at,ended_at,duration,completed,scheduled
+mock1,Daily Reading,2026-06-25,20:00:00,20:25:00,25,True,True
+mock1,Daily Reading,2026-06-26,20:10:00,20:35:00,25,True,False
+mock1,Daily Reading,2026-06-29,20:05:00,20:30:00,25,True,True
+mock1,Daily Reading,2026-06-30,20:15:00,20:40:00,25,True,True
+mock1,Daily Reading,2026-07-01,20:00:00,20:25:00,25,True,True
+mock1,Daily Reading,2026-07-02,20:05:00,20:32:00,27,True,True
+mock1,Daily Reading,2026-07-03,20:00:00,20:25:00,25,True,False
+mock1,Daily Reading,2026-07-05,20:15:00,20:40:00,25,True,True
+mock1,Morning Run,2026-06-29,06:30:00,07:00:00,30,True,True
+mock1,Morning Run,2026-07-01,06:40:00,07:10:00,30,True,True
+mock1,Morning Run,2026-07-03,06:35:00,07:05:00,30,True,True
+mock1,Water Intake,2026-06-28,08:00:00,08:05:00,5,True,True
+mock1,Water Intake,2026-06-30,08:05:00,08:10:00,5,True,True
+mock1,Water Intake,2026-07-02,08:00:00,08:05:00,5,True,True
+mock1,Water Intake,2026-06-26,08:00:00,08:03:00,3,True,False
+mock1,Water Intake,2026-07-04,08:00:00,08:06:00,6,True,True
+mock2,Sleep Tracking,2026-06-25,22:30:00,23:30:00,60,True,True
+mock2,Sleep Tracking,2026-06-26,22:45:00,23:45:00,60,True,True
+mock2,Sleep Tracking,2026-06-27,22:15:00,23:15:00,60,True,True
+mock2,Sleep Tracking,2026-06-28,22:20:00,23:20:00,60,True,True
+mock2,Sleep Tracking,2026-06-29,22:25:00,23:25:00,60,True,True
+mock2,Sleep Tracking,2026-06-30,22:30:00,23:30:00,60,True,True
+mock2,Sleep Tracking,2026-07-01,22:10:00,23:10:00,60,True,True
+mock2,Sleep Tracking,2026-07-02,22:30:00,23:30:00,60,True,True
+mock2,Sleep Tracking,2026-07-03,22:40:00,23:40:00,60,True,True
+mock2,Sleep Tracking,2026-07-04,22:00:00,23:00:00,60,True,True
+mock2,Code Practice,2026-06-29,18:00:00,18:45:00,45,True,True
+mock2,Code Practice,2026-06-30,18:15:00,18:55:00,40,True,True
+mock2,Code Practice,2026-07-01,18:00:00,18:50:00,50,True,True
+mock2,Code Practice,2026-07-03,18:10:00,18:55:00,45,True,True
+mock2,Code Practice,2026-06-25,18:30:00,18:55:00,25,True,False
+mock2,Code Practice,2026-07-04,18:20:00,18:55:00,35,True,False
+mock2,Evening Yoga,2026-06-29,19:30:00,20:15:00,45,True,True
+mock2,Evening Yoga,2026-07-01,19:40:00,20:20:00,40,True,True
+mock2,Evening Yoga,2026-07-03,19:25:00,20:10:00,45,True,True
+mock2,Evening Yoga,2026-07-04,19:35:00,20:15:00,40,True,False
+mock3,Healthy Meals,2026-06-28,12:30:00,12:50:00,20,True,True
+mock3,Healthy Meals,2026-06-29,18:45:00,19:05:00,20,True,True
+mock3,Healthy Meals,2026-06-30,12:20:00,12:40:00,20,True,True
+mock3,Healthy Meals,2026-07-01,18:50:00,19:10:00,20,True,True
+mock3,Healthy Meals,2026-07-02,12:30:00,12:55:00,25,True,True
+mock3,Healthy Meals,2026-07-03,19:00:00,19:20:00,20,True,True
+mock3,Meditation,2026-06-28,07:15:00,07:30:00,15,True,True
+mock3,Meditation,2026-06-30,07:20:00,07:35:00,15,True,True
+mock3,Meditation,2026-07-02,07:10:00,07:25:00,15,True,True
+mock3,Meditation,2026-07-04,07:05:00,07:20:00,15,True,True
+mock3,Language Practice,2026-06-29,21:00:00,21:20:00,20,True,True
+mock3,Language Practice,2026-07-01,21:10:00,21:35:00,25,True,True
+mock3,Language Practice,2026-07-03,21:05:00,21:25:00,20,True,True
+mock3,Language Practice,2026-07-02,21:00:00,21:18:00,18,False,False
+mock4,Stretch Breaks,2026-06-29,14:00:00,14:10:00,10,True,True
+mock4,Stretch Breaks,2026-06-30,14:05:00,14:15:00,10,True,True
+mock4,Stretch Breaks,2026-07-01,14:00:00,14:12:00,12,True,True
+mock4,Stretch Breaks,2026-07-02,14:10:00,14:20:00,10,True,True
+mock4,Stretch Breaks,2026-07-03,14:00:00,14:10:00,10,True,True
+mock4,Strength Training,2026-06-29,07:00:00,07:40:00,40,True,True
+mock4,Strength Training,2026-07-02,07:15:00,07:55:00,40,True,True
+mock4,Strength Training,2026-07-04,07:05:00,07:45:00,40,True,True
+mock4,Budget Review,2026-06-28,19:00:00,19:20:00,20,True,True
+mock4,Budget Review,2026-07-01,19:10:00,19:30:00,20,True,True
+mock4,Budget Review,2026-07-04,19:00:00,19:20:00,20,True,True
+mock5,Journal,2026-06-28,22:00:00,22:20:00,20,True,True
+mock5,Journal,2026-06-29,22:10:00,22:30:00,20,True,True
+mock5,Journal,2026-06-30,22:05:00,22:25:00,20,True,True
+mock5,Journal,2026-07-01,22:00:00,22:20:00,20,True,True
+mock5,Journal,2026-07-02,22:15:00,22:35:00,20,True,True
+mock5,Journal,2026-07-05,22:05:00,22:25:00,20,True,True
+mock5,Guitar Practice,2026-06-30,17:00:00,17:30:00,30,True,True
+mock5,Guitar Practice,2026-07-02,17:15:00,17:45:00,30,True,True
+mock5,Guitar Practice,2026-07-04,17:10:00,17:35:00,25,True,True
+mock5,Weekly Planning,2026-06-27,09:00:00,10:00:00,60,True,True
+mock5,Weekly Planning,2026-07-04,09:15:00,10:00:00,45,True,True
+mock2,Code Practice,2026-07-05,18:05:00,18:40:00,35,True,False
+mock3,Healthy Meals,2026-07-05,12:30:00,12:50:00,20,True,False
+mock1,Morning Run,2026-06-26,06:50:00,07:20:00,30,True,False
+mock2,Evening Yoga,2026-06-26,19:40:00,20:20:00,40,True,True
+mock4,Budget Review,2026-06-27,19:00:00,19:18:00,18,True,False
+mock5,Journal,2026-06-25,21:50:00,22:10:00,20,True,False
