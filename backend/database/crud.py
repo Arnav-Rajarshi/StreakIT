@@ -1,20 +1,39 @@
 from uuid import UUID
-from database.db import get_connection
+from backend.database.db import get_connection
 import psycopg
-import models
+import backend.models as models
 
-def read_HabitConfig(uid, HabitName:str)->models.HabitConfig:
+def read_HabitConfigs(hid)->models.HabitConfig: 
     with get_connection() as conn: 
-        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
-            cur.execute(
-                "SELECT hid, user_id, habit_name, icon, color, track_on, minimum_days, target_duration_per_session, is_active, created_at FROM habit_config WHERE user_id = %s AND habit_name = %s",
-                (uid, HabitName)
-            )
-            result=cur.fetchone()
-            if result:
-                return models.HabitConfig(**result)
+        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur: 
+            cur.execute( "SELECT * FROM habit_config WHERE user_id = %s", (hid,) ) 
+            result=cur.fetchone() 
+            if result: 
+                return models.HabitConfig(**result) 
     return None
 
+def read_HabitConfigs(uid) -> list[models.HabitConfig]:
+    with get_connection() as conn:
+        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
+            cur.execute(
+                """
+                SELECT *
+                FROM habit_config
+                WHERE user_id = %s
+                """,
+                (uid,)
+            )
+
+            results = cur.fetchall()
+            if results:
+                return [
+                    models.HabitConfig(**row)
+                    for row in results
+                ]
+            else:
+                print("No habits for this user")
+                return None
+    return None
 
 def read_HabitCache(hid:UUID)->models.HabitCache:
     with get_connection() as conn:
@@ -28,25 +47,28 @@ def read_HabitCache(hid:UUID)->models.HabitCache:
                 return models.HabitCache(**result)
     return None
 
-
 def read_UserDetails(user_name=None , email=None)->models.User:
     with get_connection() as conn:
+        print("connection established")
         with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
             if user_name:
                 cur.execute(
                     "SELECT * FROM users WHERE user_name = %s",
                     (user_name,)
                 )
+                print("query executed")
             elif email:
                 cur.execute(
                     "SELECT * FROM users WHERE email = %s",
                     (email,)
                 )
+                print("query executed")
             else:
                 return None
+                print("returning None")
             
             result=cur.fetchone()
-            #print(result)
+            print(result)
             if result:
                 return models.User(**result)
     return None

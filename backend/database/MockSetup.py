@@ -1,9 +1,9 @@
 import os
 import datetime
 import psycopg
-import auth
+import backend.services.auth_service as auth_service
 from dotenv import load_dotenv
-from database.db import get_connection
+from backend.database.db import get_connection
 
 # to cheeck if a connection is established 
 """

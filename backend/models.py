@@ -2,7 +2,9 @@ import datetime
 from pydantic import BaseModel
 from uuid import UUID
 
-
+#------------------------------------------
+# DATABASE MODELS
+#------------------------------------------
 class HabitCache(BaseModel):
     habit_id: UUID
     current_streak: int
@@ -43,3 +45,30 @@ class User(BaseModel):
     email: str
     encrypted_password: str
     created_at: datetime.datetime
+
+
+#------------------------------------------
+# API REQUEST MODELS
+#------------------------------------------
+
+
+class UserCreate(BaseModel):
+    user_name: str
+    email: str
+    password: str
+
+class LoginRequest(BaseModel):
+    user_name: str
+    email: str = None
+    password: str = None
+
+#---------------------------------------
+# API RESPONSE MODELS
+#---------------------------------------
+
+
+class TodaysHabits(BaseModel):
+    config:HabitConfig
+    cache:HabitCache
+
+
