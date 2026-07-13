@@ -4,3 +4,4 @@
 __pycache__/
 backend/database/initial_tests2.py
 backend/database/crud_tests.py
+tests

@@ -14,8 +14,10 @@ def getTodaysHabits(uid):
     '''
 
     today = datetime.date.today().weekday() # returns an integer from 0 to 6
+    
     filtered_habit_configs=[]
     todays_hids=[]
+
     for i in raw_habit_configs :
         if today in i.track_on:
             filtered_habit_configs.append(i)
@@ -53,8 +55,7 @@ TodaysHabits(
                     current_streak=5, 
                     best_streak=7, 
                     total_sessions=20, 
-                    total_duration=500, 
-                    last_completed_date=datetime.date(2026, 7, 5), 
+                    total_duration=500,  
                     last_cache_update=datetime.datetime(2026, 7, 5, 10, 8, 8, 389141), 
                     curr_streak_start_date=datetime.date(2026, 6, 29)
                     )

@@ -121,7 +121,7 @@ with get_connection() as conn:
 with get_connection() as conn:
     with conn.cursor() as cur:
         habit_cache_rows = [
-            ("mock1", "Morning Run", 3, 5, 12, 360, datetime.date(2026, 7, 4), datetime.datetime.now(), datetime.date(2026, 6, 30)),
+            ("mock1", "Morning Run", 3, 5, 12, 360, datetime.datetime.now(), datetime.date(2026, 6, 30)),
             ("mock1", "Daily Reading", 5, 7, 20, 500, datetime.date(2026, 7, 5), datetime.datetime.now(), datetime.date(2026, 6, 29)),
             ("mock1", "Water Intake", 6, 9, 25, 3750, datetime.date(2026, 7, 5), datetime.datetime.now(), datetime.date(2026, 6, 29)),
             ("mock2", "Evening Yoga", 4, 6, 14, 2800, datetime.date(2026, 7, 4), datetime.datetime.now(), datetime.date(2026, 7, 1)),

@@ -27,12 +27,9 @@ app = FastAPI(
 # =============================
 # Authentication
 # =============================
-
 @app.post("/signup")
 def signup(user: UserCreate):
-
     auth_service.create_user(user)
-
     return {"message": "Account created successfully"}
 
 
