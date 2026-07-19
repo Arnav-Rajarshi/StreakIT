@@ -1,121 +1,320 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+void main(){
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+
+    theme: ThemeData(
+      extensions: const [
+        
+        AppTheme(
+          pageGradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Color(0xFFDAD4EC),
+              Color(0xFFDAD4EC),
+              Color(0xFFF3E7E9),
+            ],
+            stops: [0.0, 0.01, 1.0],
+          ),
+        ),
+      ],
+
+
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: const TextStyle(color: Color(0xFF746B88)),
+        prefixIconColor: const Color(0xFF6C5A91),
+        filled: true,
+        fillColor: Colors.white.withValues(alpha: 0.65),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(color: Color(0xFF6C5A91), width: 1.5),
+        ),
+      ),
+    ),
+
+    home: LoginPage(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AppTheme extends ThemeExtension<AppTheme> {
+  final LinearGradient pageGradient;
 
-  // This widget is the root of your application.
+  const AppTheme({required this.pageGradient});
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+  AppTheme copyWith({LinearGradient? pageGradient}) {
+    return AppTheme(pageGradient: pageGradient ?? this.pageGradient);
+  }
+
+  @override
+  AppTheme lerp(covariant ThemeExtension<AppTheme>? other, double t) {
+    if (other is! AppTheme) {
+      return this;
+    }
+
+    return AppTheme(
+      pageGradient: LinearGradient.lerp(pageGradient, other.pageGradient, t)!,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatefulWidget{
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const HomePage ({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<StatefulWidget> createState() {
+    return HomePageState();
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+class HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text("Hello World"),
+    );
   }
+}
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => LoginPageState();
+}
+
+class LoginPageState extends State<LoginPage> {
+  bool obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+
+        // Heres the way to apply the page theme
+        decoration: BoxDecoration(
+          gradient: Theme.of(context).extension<AppTheme>()!.pageGradient,
+        ),
+
+        child: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Center(
+                child: FractionallySizedBox(
+                  widthFactor: 0.60,
+                  heightFactor: 0.68,
+
+                  child: Card(
+                    elevation: 12,
+                    shadowColor: const Color(0xFF6B5B95).withValues(alpha: 0.25),
+                    color: Colors.white.withValues(alpha: 0.88),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+                    
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
+                      child: Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const Text('Welcome back', textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700, color: Color(0xFF403757))),
+                          
+                          const SizedBox(height: 8),
+                          
+                          const Text('Sign in to continue your streak.', textAlign: TextAlign.center,
+                            style: TextStyle(color: Color(0xFF746B88))),
+                          
+                          const SizedBox(height: 26),
+                          
+                          TextField(
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                              labelText: 'Username or email',
+                              prefixIcon: Icon(Icons.account_circle_outlined),
+                            ),
+                          ),
+
+                          const SizedBox(height: 16),
+                          
+                          TextField(
+                            obscureText: obscurePassword,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              prefixIcon: const Icon(Icons.lock_outline_rounded),
+                              suffixIcon: InkWell(
+
+                                borderRadius: BorderRadius.circular(24),
+                                
+                                onTap: () => setState(() => obscurePassword = !obscurePassword), // calling setState to re-render the UI
+                                
+                                child: Icon(
+                                  obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                  color: const Color(0xFF746B88),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 26),
+
+                          // The submit button
+                          SizedBox(
+                            height: 52,
+                            child: ElevatedButton(
+                              onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Login submitted')),
+                              ),
+
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF6C5A91),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                              ),
+                              child: const Text('Submit', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                            ),
+
+                          ),
+                          const SizedBox(height: 16),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(builder: (_) => const SignUpPage()),
+                            ),
+                            child: const Text('New user? Go to Sign Up'),
+                          ),
+                        ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+
+}
+
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  bool obscurePassword = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: Theme.of(context).extension<AppTheme>()!.pageGradient,
+        ),
+        child: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Center(
+                child: FractionallySizedBox(
+                  widthFactor: 0.60,
+                  heightFactor: 0.80,
+                  child: Card(
+                    elevation: 12,
+                    shadowColor: const Color(0xFF6B5B95).withValues(alpha: 0.25),
+                    color: Colors.white.withValues(alpha: 0.88),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
+                      child: Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const Text('Create your account', textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700, color: Color(0xFF403757))),
+                          const SizedBox(height: 8),
+                          const Text('Start building your streak today.', textAlign: TextAlign.center,
+                            style: TextStyle(color: Color(0xFF746B88))),
+                          const SizedBox(height: 26),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Username',
+                              prefixIcon: Icon(Icons.account_circle_outlined),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const TextField(
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              prefixIcon: Icon(Icons.email_outlined),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          TextField(
+                            obscureText: obscurePassword,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              prefixIcon: const Icon(Icons.lock_outline_rounded),
+                              suffixIcon: InkWell(
+                                borderRadius: BorderRadius.circular(24),
+                                onTap: () => setState(() => obscurePassword = !obscurePassword),
+                                child: Icon(
+                                  obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                  color: const Color(0xFF746B88),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 26),
+                          SizedBox(
+                            height: 52,
+                            child: ElevatedButton(
+                              onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Sign up submitted')),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF6C5A91),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                              ),
+                              child: const Text('Sign Up', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Already have an account? Sign In'),
+                          ),
+                        ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
