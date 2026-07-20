@@ -1,6 +1,7 @@
 import bcrypt
 from backend.database import crud, db
 from backend.database.db import get_connection
+import psycopg
 
 def hash_password(password: str) -> str:
     # Generate a salt and hash the password
@@ -35,7 +36,7 @@ def create_user(user):
 
 def validate_user(password: str, userDetails: str) -> bool:
     with db.get_connection() as conn:
-        with conn.cursor() as cur:
+        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
 
             cur.execute("""
                 SELECT encrypted_password
