@@ -20,21 +20,21 @@ class LoginRequest {
 
 // UserCreate
 class UserCreate {
-  final String username;
+  final String user_name;
   final String email;
   final String password;
 
   UserCreate({
-    required this.username,
+    required this.user_name,
     required this.email,
     required this.password
 });
 
   Map<String,dynamic> toJson() {
     return {
-      username:  username,
-      email:  email,
-      password: password
+      "user_name":  user_name,
+      "email":  email,
+      "password": password
     };
   }
 }

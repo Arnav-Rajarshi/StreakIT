@@ -9,23 +9,29 @@ class AuthService {
 
     Future<void> login(LoginRequest request) async {
       
-      await http.post(
+      final response = await http.post(
         Uri.parse("$baseUrl/login"),
         headers:{
           "Content-Type": "application/json",
         },
         body:jsonEncode(request.toJson())
         );
-    }
 
+    print(response.statusCode);
+    print(response.body);
+    }
+     
     Future<void> signup(UserCreate user) async {
-      await http.post(
-        Uri.parse("$baseUrl/login"),
+      final response = await http.post(
+        Uri.parse("$baseUrl/signup"),
         headers:{
           "Content-Type": "application/json",
         },
         body:jsonEncode(user.toJson())
         );
+
+    print(response.statusCode);
+    print(response.body);
     }
 
 }

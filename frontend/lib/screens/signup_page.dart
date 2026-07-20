@@ -107,7 +107,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 );
 
                                 final user = UserCreate(
-                                  username: usernameController.text, 
+                                  user_name: usernameController.text, 
                                   email: emailController.text, 
                                   password: passwordController.text);
 

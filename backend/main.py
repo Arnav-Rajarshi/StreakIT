@@ -2,17 +2,19 @@ from uuid import UUID
 
 from fastapi import FastAPI, HTTPException
 
-from models import (
+from fastapi.middleware.cors import CORSMiddleware
+
+from backend.models import (
     LoginRequest,
     UserCreate,
-    HabitCreate,
-    HabitUpdate,
-    HabitLogCreate,
-    TodayPage,
+    #HabitCreate,
+    #HabitUpdate,
+    #HabitLogCreate,
+    TodaysHabits,
     DashboardPage,
 )
 
-from services import (
+from backend.services import (
     auth_service,
     today_service,
     dashboard_service,
@@ -23,6 +25,15 @@ app = FastAPI(
     title="StreakIT API",
     version="1.0.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:56071"],  # or ["*"] during development
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # =============================
 # Authentication
@@ -38,8 +49,7 @@ def login(credentials: LoginRequest):
 
     if not auth_service.validate_user(
         password=credentials.password,
-        user_name=credentials.user_name,
-        email=credentials.email
+        userDetails=credentials.userDetails
     ):
         raise HTTPException(
             status_code=401,
@@ -53,7 +63,7 @@ def login(credentials: LoginRequest):
 # Home
 # =============================
 
-@app.get("/today", response_model=TodayPage)
+@app.get("/today", response_model=TodaysHabits)
 def today(uid: UUID):
 
     return today_service.getTodayPage(uid)
@@ -72,7 +82,7 @@ def dashboard(uid: UUID):
 # =============================
 # Habits
 # =============================
-
+"""
 @app.post("/habits")
 def create_habit(habit: HabitCreate):
 
@@ -98,4 +108,4 @@ def delete_habit(hid: UUID):
 @app.post("/habit-log")
 def log_habit(log: HabitLogCreate):
 
-    return habit_service.logHabit(log)
+    return habit_service.logHabit(log)"""

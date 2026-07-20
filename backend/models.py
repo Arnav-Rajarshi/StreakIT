@@ -61,9 +61,8 @@ class UserCreate(BaseModel):
     password: str
 
 class LoginRequest(BaseModel):
-    user_name: str
-    email: str = None
-    password: str = None
+    userDetails: str
+    password: str 
 
 #---------------------------------------
 # API RESPONSE MODELS
