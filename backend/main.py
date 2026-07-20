@@ -38,8 +38,7 @@ def login(credentials: LoginRequest):
 
     if not auth_service.validate_user(
         password=credentials.password,
-        user_name=credentials.user_name,
-        email=credentials.email
+        userDetails=credentials.userDetails
     ):
         raise HTTPException(
             status_code=401,

@@ -33,15 +33,25 @@ def create_user(user):
             )
 
 
-def validate_user(password: str, user_name: str = None, email: str = None) -> bool:
+def validate_user(password: str, userDetails: str) -> bool:
     with db.get_connection() as conn:
         with conn.cursor() as cur:
-            if user_name:
-                user = crud.read_UserDetails(user_name=user_name)
-            elif email:
-                user = crud.read_UserDetails(email=email)
-            else:
+
+            cur.execute("""
+                SELECT encrypted_password
+                FROM users
+                WHERE email = %s
+                   OR user_name = %s
+            """, (userDetails, userDetails))
+
+            user = cur.fetchone()
+
+            if user is None:
                 return False
-            if user and verify_password(password, user.encrypted_password):
-                return True
-    return False
+
+            stored_hash = user["encrypted_password"]
+
+            return bcrypt.checkpw(
+                            password.encode("utf-8"),
+                            stored_hash.encode("utf-8")
+                            )
