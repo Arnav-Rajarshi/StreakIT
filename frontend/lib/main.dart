@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/login_page.dart'; 
+import 'package:frontend/screens/login_page.dart';
+import 'package:frontend/screens/today_home_page.dart';
+import 'package:frontend/theme/app_theme.dart';
 
-void main(){
+void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-
     theme: ThemeData(
-      extensions: const [
-        
-        AppTheme(
-          pageGradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Color(0xFFDAD4EC),
-              Color(0xFFDAD4EC),
-              Color(0xFFF3E7E9),
-            ],
-            stops: [0.0, 0.01, 1.0],
-          ),
-        ),
-      ],
-
-
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: appTheme.accent,
+        brightness: Brightness.light,
+        surface: appTheme.glassSurface,
+      ),
+      extensions: const [appTheme],
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(letterSpacing: 0.1),
+      ),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: const TextStyle(color: Color(0xFF746B88)),
         prefixIconColor: const Color(0xFF6C5A91),
@@ -37,50 +31,31 @@ void main(){
           borderSide: const BorderSide(color: Color(0xFF6C5A91), width: 1.5),
         ),
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: appTheme.accent,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          textStyle: const TextStyle(fontWeight: FontWeight.w800),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: appTheme.accent,
+          textStyle: const TextStyle(fontWeight: FontWeight.w700),
+        ),
+      ),
+      dialogTheme: DialogThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      ),
     ),
-
-    home: LoginPage(),
+    home: const LoginPage(),
   ));
 }
 
-class AppTheme extends ThemeExtension<AppTheme> {
-  final LinearGradient pageGradient;
-
-  const AppTheme({required this.pageGradient});
-
-  @override
-  AppTheme copyWith({LinearGradient? pageGradient}) {
-    return AppTheme(pageGradient: pageGradient ?? this.pageGradient);
-  }
-
-  @override
-  AppTheme lerp(covariant ThemeExtension<AppTheme>? other, double t) {
-    if (other is! AppTheme) {
-      return this;
-    }
-
-    return AppTheme(
-      pageGradient: LinearGradient.lerp(pageGradient, other.pageGradient, t)!,
-    );
-  }
-}
-
-class HomePage extends StatefulWidget{
-
-  const HomePage ({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return HomePageState();
-  }
-}
-
-class HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("Hello World"),
-    );
-  }
+/// Compatibility entry point for the app's former placeholder home screen.
+class HomePage extends TodayHomePage {
+  const HomePage({super.key});
 }
 

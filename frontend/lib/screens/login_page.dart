@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:frontend/main.dart';
 import 'package:frontend/models/auth_models.dart';
 import 'package:frontend/screens/signup_page.dart';
+import 'package:frontend/screens/today_home_page.dart';
 import 'package:frontend/services/auth_service.dart';
+import 'package:frontend/theme/app_theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,127 +21,125 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<AppTheme>()!;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-
-        // Heres the way to apply the page theme
         decoration: BoxDecoration(
-          gradient: Theme.of(context).extension<AppTheme>()!.pageGradient,
+          gradient: theme.pageGradient,
         ),
-
         child: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Center(
-                child: FractionallySizedBox(
-                  widthFactor: 0.60,
-                  heightFactor: 0.68,
-
-                  child: Card(
-                    elevation: 12,
-                    shadowColor: const Color(0xFF6B5B95).withValues(alpha: 0.25),
-                    color: Colors.white.withValues(alpha: 0.88),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
-                      child: Center(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 520),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: theme.glassSurface.withValues(alpha: .9),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: theme.glassBorder),
+                        boxShadow: [
+                          ...theme.softShadow,
+                          BoxShadow(color: const Color(0x1AFFFFFF), blurRadius: 18, offset: const Offset(-4, -4)),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
                         child: SingleChildScrollView(
                           child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const Text('Welcome back', textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700, color: Color(0xFF403757))),
-                          
-                          const SizedBox(height: 8),
-                          
-                          const Text('Sign in to continue your streak.', textAlign: TextAlign.center,
-                            style: TextStyle(color: Color(0xFF746B88))),
-                          
-                          const SizedBox(height: 26),
-                          
-                          TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: userdetailsController,
-                            decoration: const InputDecoration(
-                              labelText: 'Username or email',
-                              prefixIcon: Icon(Icons.account_circle_outlined),
-                            ),
-                          ),
-
-                          const SizedBox(height: 16),
-                          
-                          TextField(
-                            obscureText: obscurePassword,
-                            controller: passwordController,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              prefixIcon: const Icon(Icons.lock_outline_rounded),
-                              suffixIcon: InkWell(
-
-                                borderRadius: BorderRadius.circular(24),
-                                
-                                onTap: () => setState(() => obscurePassword = !obscurePassword), // calling setState to re-render the UI
-                                
-                                child: Icon(
-                                  obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                                  color: const Color(0xFF746B88),
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [theme.accent.withValues(alpha: .16), theme.accent.withValues(alpha: .08)]),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Icon(Icons.lock_open_rounded, color: theme.accent, size: 30),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                'Welcome back',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: theme.ink, letterSpacing: -.3),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Sign in to continue your streak.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: theme.mutedInk, fontSize: 13.5, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 24),
+                              TextField(
+                                keyboardType: TextInputType.emailAddress,
+                                controller: userdetailsController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Username or email',
+                                  prefixIcon: Icon(Icons.account_circle_outlined),
                                 ),
                               ),
-                            ),
-                          ),
-
-                          const SizedBox(height: 26),
-
-                          // The submit button
-                          SizedBox(
-                            height: 52,
-                            child: ElevatedButton(
-                              onPressed: () async { 
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Login submitted')),
-                                );
-
-                                final request = LoginRequest(
+                              const SizedBox(height: 16),
+                              TextField(
+                                obscureText: obscurePassword,
+                                controller: passwordController,
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  prefixIcon: const Icon(Icons.lock_outline_rounded),
+                                  suffixIcon: InkWell(
+                                    borderRadius: BorderRadius.circular(24),
+                                    onTap: () => setState(() => obscurePassword = !obscurePassword),
+                                    child: Icon(
+                                      obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                      color: theme.mutedInk,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              SizedBox(
+                                height: 52,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    final request = LoginRequest(
                                       userDetails: userdetailsController.text,
                                       password: passwordController.text,
-                                  );
-                                await AuthService().login(request);
-                              },
-
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF6C5A91),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                    );
+                                    await AuthService().login(request);
+                                    if (!mounted) return;
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) => const HomePage()),
+                                    );
+                                  },
+                                  child: const Text('Submit', style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700)),
+                                ),
                               ),
-                              child: const Text('Submit', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                            ),
-
-                          ),
-                          const SizedBox(height: 16),
-                          TextButton(
-                            onPressed: () => Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_) => const SignUpPage()),
-                            ),
-                            child: const Text('New user? Go to Sign Up'),
-                          ),
-                        ],
+                              const SizedBox(height: 14),
+                              TextButton(
+                                onPressed: () => Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (_) => const SignUpPage()),
+                                ),
+                                child: Text('New user? Go to Sign Up', style: TextStyle(color: theme.accent, fontWeight: FontWeight.w700)),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              );
-            },
+              ),
+            ),
           ),
         ),
       ),
     );
   }
-
 }
-
