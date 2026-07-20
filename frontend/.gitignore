@@ -1,3 +1,9 @@
+#local
+__pycache__/
+backend/
+.env
+.vscode/
+
 # Miscellaneous
 *.class
 *.log
