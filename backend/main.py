@@ -40,9 +40,14 @@ app.add_middleware(
 # =============================
 @app.post("/signup")
 def signup(user: UserCreate):
-    auth_service.create_user(user)
-    return {"message": "Account created successfully"}
+    # Ensure create_user returns the newly inserted user DB object/dict
+    new_user = auth_service.create_user(user)
 
+    return {
+        "message": "Account created successfully",
+        "uid": str(new_user["uid"]),       # or new_user.uid if it's an ORM/Pydantic model
+        "user_name": str(new_user["user_name"]) # or new_user.user_name
+    }
 
 @app.post("/login")
 def login(credentials: LoginRequest):
@@ -60,7 +65,8 @@ def login(credentials: LoginRequest):
 
     return {
         "message": "Login Successful",
-        "uid": str(user["uid"])
+        "uid": str(user["uid"]),
+        "user_name":str(user["user_name"])
     }
 
 

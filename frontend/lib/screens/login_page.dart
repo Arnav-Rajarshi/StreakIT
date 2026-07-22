@@ -104,6 +104,7 @@ class LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               const SizedBox(height: 24),
+                              
                               SizedBox(
                                 height: 52,
                                 child: ElevatedButton(
@@ -113,6 +114,9 @@ class LoginPageState extends State<LoginPage> {
                                       password: passwordController.text,
                                     );
                                     final loginResponse = await AuthService().login(request);
+                                    print(loginResponse.message);
+                                    print(loginResponse.uid);
+                                    print(loginResponse.user_name);
 
                                     if (!mounted) return;
 
@@ -120,6 +124,7 @@ class LoginPageState extends State<LoginPage> {
                                       MaterialPageRoute(
                                         builder: (_) => TodayHomePage(
                                           uid: loginResponse.uid,
+                                          username: loginResponse.user_name
                                         ),
                                       ),
                                     );

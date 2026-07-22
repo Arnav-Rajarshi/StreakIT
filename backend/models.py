@@ -62,7 +62,7 @@ class UserCreate(BaseModel):
 
 class LoginRequest(BaseModel):
     user_details: str
-    password: str 
+    password: str
 
 class HabitLogCreate(BaseModel):
     habit_id: UUID

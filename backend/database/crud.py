@@ -34,7 +34,7 @@ def read_HabitConfigs(uid) -> list[models.HabitConfig]:
             else:
                 print("No habits for this user")
                 return None
-    return None
+    return []
 
 def read_HabitCaches(uid:UUID)->list[models.HabitCache]:
     with get_connection() as conn:
@@ -116,7 +116,7 @@ def read_HabitLogs(hid:UUID)->models.HabitLogs:
             logs= cur.fetchall()
             result = [models.HabitLogs(**log) for log in logs]
             return result 
-    return None 
+    return None
 
 
 def create_HabitConfigAndCache(HabitConfig: models.HabitConfig):

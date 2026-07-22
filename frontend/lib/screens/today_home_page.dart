@@ -1,15 +1,17 @@
 import 'dart:ui';
+import 'package:frontend/screens/login_page.dart';
 import 'package:frontend/services/today_service.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/today_models.dart';
 import 'package:frontend/theme/app_theme.dart';
+import 'package:frontend/utils/app_icons.dart';
 
 /// The authenticated landing page. Data is local mock state until API wiring.
 class TodayHomePage extends StatefulWidget {
   const TodayHomePage({
     super.key,
     required this.uid,
-    this.username = "Arnav",
+    required this.username,
   });
 
   final String uid;
@@ -200,7 +202,16 @@ class _TodayHomePageState extends State<TodayHomePage> {
 }
 
 class _TodayContent extends StatelessWidget {
-  const _TodayContent({required this.habits, required this.tasks, required this.events, required this.onHabitComplete, required this.onTaskChanged, required this.onAddTask, required this.onAddEvent});
+  const _TodayContent({
+    required this.habits,
+    required this.tasks,
+    required this.events,
+    required this.onHabitComplete,
+    required this.onTaskChanged,
+    required this.onAddTask,
+    required this.onAddEvent,
+  });
+
   final List<TodayHabit> habits;
   final List<TodayTask> tasks;
   final List<TodayEvent> events;
@@ -210,26 +221,99 @@ class _TodayContent extends StatelessWidget {
   final VoidCallback onAddEvent;
 
   @override
-  Widget build(BuildContext context) => ListView(
-        padding: const EdgeInsets.fromLTRB(20, 6, 20, 120),
-        children: [
-          const _SectionTitle(title: 'Current streaks', subtitle: 'Your consistency, in motion'),
-          const SizedBox(height: 12),
-          const _StreakList(),
-          const SizedBox(height: 28),
-          const _SectionTitle(title: "Today's habits", subtitle: 'Small actions, lasting progress'),
-          const SizedBox(height: 12),
-          ...habits.map((habit) => Padding(padding: const EdgeInsets.only(bottom: 12), child: HabitCard(habit: habit, onComplete: () => onHabitComplete(habit)))),
-          const SizedBox(height: 18),
-          _SectionTitle(title: "Today's tasks", actionLabel: '+ Add Task', onAction: onAddTask),
-          const SizedBox(height: 12),
-          GlassCard(child: Column(children: tasks.asMap().entries.map((entry) => TaskCard(task: entry.value, showDivider: entry.key < tasks.length - 1, onChanged: (value) => onTaskChanged(entry.value, value))).toList())),
-          const SizedBox(height: 28),
-          _SectionTitle(title: "Today's events", actionLabel: '+ Add Event', onAction: onAddEvent),
-          const SizedBox(height: 12),
-          GlassCard(child: Column(children: events.asMap().entries.map((entry) => EventCard(event: entry.value, showDivider: entry.key < events.length - 1)).toList())),
-        ],
-      );
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<AppTheme>()!;
+
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 6, 20, 120),
+      children: [
+        const _SectionTitle(
+          title: 'Current streaks',
+          subtitle: 'Your consistency, in motion',
+        ),
+        const SizedBox(height: 12),
+        _StreakList(habits: habits),
+        const SizedBox(height: 28),
+        const _SectionTitle(
+          title: "Today's habits",
+          subtitle: 'Small actions, lasting progress',
+        ),
+        const SizedBox(height: 12),
+
+        // --- EMPTY STATE VS HABITS LIST ---
+        if (habits.isEmpty)
+          GlassCard(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                child: Text(
+                  "No habits scheduled for today ✨",
+                  style: TextStyle(
+                    color: theme.mutedInk,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          )
+        else
+          ...habits.map(
+            (habit) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: HabitCard(
+                habit: habit,
+                onComplete: () => onHabitComplete(habit),
+              ),
+            ),
+          ),
+        // ----------------------------------
+
+        const SizedBox(height: 18),
+        _SectionTitle(
+          title: "Today's tasks",
+          actionLabel: '+ Add Task',
+          onAction: onAddTask,
+        ),
+        const SizedBox(height: 12),
+        GlassCard(
+          child: Column(
+            children: tasks
+                .asMap()
+                .entries
+                .map(
+                  (entry) => TaskCard(
+                    task: entry.value,
+                    showDivider: entry.key < tasks.length - 1,
+                    onChanged: (value) => onTaskChanged(entry.value, value),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+        const SizedBox(height: 28),
+        _SectionTitle(
+          title: "Today's events",
+          actionLabel: '+ Add Event',
+          onAction: onAddEvent,
+        ),
+        const SizedBox(height: 12),
+        GlassCard(
+          child: Column(
+            children: events
+                .asMap()
+                .entries
+                .map(
+                  (entry) => EventCard(
+                    event: entry.value,
+                    showDivider: entry.key < events.length - 1,
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class HomeAppBar extends StatelessWidget {
@@ -268,7 +352,17 @@ class HomeAppBar extends StatelessWidget {
           PopupMenuButton<String>(
             tooltip: 'Profile menu',
             offset: const Offset(0, 54),
-            onSelected: (_) {},
+            onSelected: (value) {
+                if (value == "logout") {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const LoginPage(),
+                        ),
+                        (route) => false,
+                    );
+                }
+            },
             itemBuilder: (_) => const [
               PopupMenuItem(value: 'profile', child: Text('Profile')),
               PopupMenuItem(value: 'settings', child: Text('Settings')),
@@ -299,18 +393,39 @@ class HomeAppBar extends StatelessWidget {
 }
 
 class _StreakList extends StatelessWidget {
-  const _StreakList();
+  const _StreakList({
+    required this.habits,
+  });
+
+  final List<TodayHabit> habits;
 
   @override
-  Widget build(BuildContext context) => const Column(
-        children: [
-          HabitStreakBar(name: 'Gym', icon: Icons.local_fire_department_rounded, days: 13, progress: .72, color: Color(0xFFE88468)),
-          SizedBox(height: 10),
-          HabitStreakBar(name: 'LeetCode', icon: Icons.code_rounded, days: 24, progress: .92, color: Color(0xFF6C78BF)),
-          SizedBox(height: 10),
-          HabitStreakBar(name: 'Study', icon: Icons.auto_stories_rounded, days: 5, progress: .45, color: Color(0xFFB272A7)),
-        ],
+  Widget build(BuildContext context) {
+
+    if (habits.isEmpty) {
+      return const Center(
+        child: Text("No habits yet"),
       );
+    }
+
+    return Column(
+      children: [
+        for (final habit in habits)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: HabitStreakBar(
+              name: habit.name,
+              days: habit.currentStreak,
+              progress: habit.bestStreak == 0
+                        ? 0
+                        : (habit.currentStreak / habit.bestStreak).clamp(0.0, 1.0),
+              color: habit.color,
+              icon: habit.icon,
+            ),
+          ),
+      ],
+    );
+  }
 }
 
 class HabitStreakBar extends StatelessWidget {

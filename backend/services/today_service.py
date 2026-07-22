@@ -5,6 +5,10 @@ from backend.database.db import get_connection
 
 def getTodaysHabits(uid):
     raw_habit_configs = crud.read_HabitConfigs(uid)
+    print(raw_habit_configs)
+    if not raw_habit_configs:
+        return []
+
     # business logic ... only the habits which are scheduled for today
     '''
     [
@@ -23,8 +27,11 @@ def getTodaysHabits(uid):
         if today in i.track_on:
             filtered_habit_configs.append(i)
             todays_hids.append(i.hid)
+    print(filtered_habit_configs)
+
     
     filtered_habit_caches= [crud.read_HabitCache(i) for i in todays_hids]
+    print(filtered_habit_caches)
 
     result=[]
 
@@ -51,6 +58,10 @@ def getTodaysHabits(uid):
                         completed=completed,
                     )
                 )
+      
+    print(result)
+
+    return result if result else []
                 
 #user = crud.read_UserDetails(user_name="mock1")
 #print(getTodaysHabits(user.uid))
@@ -115,8 +126,8 @@ def getTodayPage(uid):
     todays_habits = getTodaysHabits(uid)
     return todays_habits
 
-from uuid import UUID
-print(getTodayPage(UUID("96939a0f-c697-4ce6-a962-d2859eecf1e9")))
+#from uuid import UUID
+#print(getTodayPage(UUID("96939a0f-c697-4ce6-a962-d2859eecf1e9")))
         
 
 

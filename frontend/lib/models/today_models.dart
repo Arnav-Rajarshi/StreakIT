@@ -18,7 +18,7 @@ class TodayHabit {
     required this.bestStreak,
     required this.totalSessions,
     required this.totalDuration,
-    required this.completed
+    required this.completed,
   });
 
   final String id;
@@ -39,30 +39,29 @@ class TodayHabit {
   final bool completed;
 
   factory TodayHabit.fromJson(Map<String, dynamic> json) {
-    final config = json["config"];
-    final cache = json["cache"];
+    try {
+      final config = json["config"];
+      final cache = json["cache"];
 
-    return TodayHabit(
-      id: config["hid"].toString(),
-
-      name: config["habit_name"],
-
-      icon: AppIcons.getIcon(config["icon"]),
-
-      color: _hexToColor(config["color"]),
-
-      targetDuration: config["target_duration_per_session"],
-
-      currentStreak: cache["current_streak"],
-
-      bestStreak: cache["best_streak"],
-
-      totalSessions: cache["total_sessions"],
-
-      totalDuration: cache["total_duration"],
-
-      completed: json["completed"],
-    );
+      return TodayHabit(
+        id: config["hid"].toString(),
+        name: config["habit_name"],
+        icon: AppIcons.getIcon(config["icon"]),
+        color: _hexToColor(config["color"]),
+        targetDuration: config["target_duration_per_session"],
+        currentStreak: cache["current_streak"],
+        bestStreak: cache["best_streak"],
+        totalSessions: cache["total_sessions"],
+        totalDuration: cache["total_duration"],
+        completed: json["completed"],
+      );
+    } catch (e, stackTrace) {
+      print("=========== TodayHabit.fromJson ERROR ===========");
+      print(json);
+      print(e);
+      print(stackTrace);
+      rethrow;
+    }
   }
 
   static Color _hexToColor(String hex) {

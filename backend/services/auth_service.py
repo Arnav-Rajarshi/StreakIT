@@ -39,7 +39,7 @@ def validate_user(password: str, user_details: str):
         with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
 
             cur.execute("""
-                SELECT uid, encrypted_password
+                SELECT uid, encrypted_password , user_name
                 FROM users
                 WHERE email = %s
                    OR user_name = %s

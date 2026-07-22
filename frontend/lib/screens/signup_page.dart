@@ -115,24 +115,44 @@ class _SignUpPageState extends State<SignUpPage> {
                                 height: 52,
                                 child: ElevatedButton(
                                   onPressed: () async {
+                                  final username = usernameController.text.trim();
+                                  final email = emailController.text.trim();
+                                  final password = passwordController.text.trim();
+
+                                  if (username.isEmpty || email.isEmpty || password.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Please fill in all fields')),
+                                    );
+                                    return;
+                                  }
+
+                                  try {
                                     final user = UserCreate(
-                                      user_name: usernameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
+                                      user_name: username,
+                                      email: email,
+                                      password: password,
                                     );
 
                                     final signupResponse = await AuthService().signup(user);
                                     if (!mounted) return;
 
+                                    // Direct navigation to TodayHomePage
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                         builder: (_) => TodayHomePage(
                                           uid: signupResponse.uid,
+                                          username: signupResponse.user_name,
                                         ),
                                       ),
                                     );
-                                  },
+                                  } catch (e) {
+                                    if (!mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Signup failed: ${e.toString()}')),
+                                    );
+                                  }
+                                },
                                   child: const Text('Sign Up', style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700)),
                                 ),
                               ),

@@ -20,6 +20,8 @@ class AuthService {
       if (response.statusCode != 200) {
         throw Exception(response.body);
       }
+      
+      print(response.body);
 
       return LoginResponse.fromJson(
         jsonDecode(response.body),
@@ -27,22 +29,22 @@ class AuthService {
     }
      
     Future<LoginResponse> signup(UserCreate user) async {
-      final response = await http.post(
-        Uri.parse("$baseUrl/signup"),
-        headers:{
-          "Content-Type": "application/json",
-        },
-        body:jsonEncode(user.toJson())
-        );
-      
-      if (response.statusCode != 200) {
-        throw Exception(response.body);
-      }
+    final response = await http.post(
+      Uri.parse("$baseUrl/signup"),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(user.toJson()),
+    );
 
-      return LoginResponse.fromJson(
-        jsonDecode(response.body),
-      );
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      throw Exception(response.body);
     }
+
+    return LoginResponse.fromJson(
+      jsonDecode(response.body),
+    );
+  }
 
 }
 

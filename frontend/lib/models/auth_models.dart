@@ -43,16 +43,22 @@ class UserCreate {
 class LoginResponse {
   final String message;
   final String uid;
+  final String user_name;
 
   LoginResponse({
     required this.message,
     required this.uid,
+    required this.user_name
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(
-      message: json["message"],
-      uid: json["uid"],
-    );
-  }
+
+  print(json);
+
+  return LoginResponse(
+    message: json["message"],
+    uid: json["uid"],
+    user_name: json["user_name"],
+  );
+}
 }
