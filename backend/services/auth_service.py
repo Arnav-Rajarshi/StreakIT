@@ -34,12 +34,12 @@ def create_user(user):
             )
 
 
-def validate_user(password: str, userDetails: str) -> bool:
+def validate_user(password: str, userDetails: str):
     with db.get_connection() as conn:
         with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
 
             cur.execute("""
-                SELECT encrypted_password
+                SELECT uid, encrypted_password
                 FROM users
                 WHERE email = %s
                    OR user_name = %s
@@ -48,11 +48,14 @@ def validate_user(password: str, userDetails: str) -> bool:
             user = cur.fetchone()
 
             if user is None:
-                return False
+                return None
 
             stored_hash = user["encrypted_password"]
 
-            return bcrypt.checkpw(
-                            password.encode("utf-8"),
-                            stored_hash.encode("utf-8")
-                            )
+            if not bcrypt.checkpw(
+                password.encode("utf-8"),
+                stored_hash.encode("utf-8")
+            ):
+                return None
+
+            return user

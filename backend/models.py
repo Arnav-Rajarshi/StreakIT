@@ -34,8 +34,8 @@ class HabitLogs(BaseModel):
     log_id: UUID
     habit_id: UUID
     date: datetime.date
-    started_at: datetime.datetime
-    ended_at: datetime.datetime
+    started_at: datetime.time
+    ended_at: datetime.time
     duration: int
     completed: bool
     scheduled: bool
@@ -64,6 +64,12 @@ class LoginRequest(BaseModel):
     userDetails: str
     password: str 
 
+class HabitLogCreate(BaseModel):
+    habit_id: UUID
+    started_at: datetime.time
+    ended_at: datetime.time
+    duration: int
+    
 #---------------------------------------
 # API RESPONSE MODELS
 #---------------------------------------
@@ -72,6 +78,7 @@ class LoginRequest(BaseModel):
 class TodaysHabits(BaseModel):
     config:HabitConfig
     cache:HabitCache
+    completed:bool
 
 
 class HeatmapData(BaseModel):

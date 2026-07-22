@@ -7,18 +7,23 @@ final String baseUrl = 'http://127.0.0.1:8000';
 
 class AuthService {
 
-    Future<void> login(LoginRequest request) async {
-      
+    Future<LoginResponse> login(LoginRequest request) async {
+
       final response = await http.post(
         Uri.parse("$baseUrl/login"),
-        headers:{
+        headers: {
           "Content-Type": "application/json",
         },
-        body:jsonEncode(request.toJson())
-        );
+        body: jsonEncode(request.toJson()),
+      );
 
-    print(response.statusCode);
-    print(response.body);
+      if (response.statusCode != 200) {
+        throw Exception(response.body);
+      }
+
+      return LoginResponse.fromJson(
+        jsonDecode(response.body),
+      );
     }
      
     Future<void> signup(UserCreate user) async {

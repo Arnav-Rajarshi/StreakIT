@@ -112,10 +112,16 @@ class LoginPageState extends State<LoginPage> {
                                       userDetails: userdetailsController.text,
                                       password: passwordController.text,
                                     );
-                                    await AuthService().login(request);
+                                    final loginResponse = await AuthService().login(request);
+
                                     if (!mounted) return;
+
                                     Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (_) => const TodayHomePage()),
+                                      MaterialPageRoute(
+                                        builder: (_) => TodayHomePage(
+                                          uid: loginResponse.uid,
+                                        ),
+                                      ),
                                     );
                                   },
                                   child: const Text('Submit', style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700)),

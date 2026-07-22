@@ -9,7 +9,7 @@ from backend.models import (
     UserCreate,
     #HabitCreate,
     #HabitUpdate,
-    #HabitLogCreate,
+    HabitLogCreate,
     TodaysHabits,
     DashboardPage,
 )
@@ -47,25 +47,29 @@ def signup(user: UserCreate):
 @app.post("/login")
 def login(credentials: LoginRequest):
 
-    if not auth_service.validate_user(
-        password=credentials.password,
-        userDetails=credentials.userDetails
-    ):
+    user = auth_service.validate_user(
+    password=credentials.password,
+    userDetails=credentials.userDetails
+    )
+
+    if user is None:
         raise HTTPException(
             status_code=401,
             detail="Invalid credentials"
         )
 
-    return {"message": "Login Successful"}
+    return {
+        "message": "Login Successful",
+        "uid": str(user["uid"])
+    }
 
 
 # =============================
 # Home
 # =============================
 
-@app.get("/today", response_model=TodaysHabits)
+@app.get("/today", response_model=list[TodaysHabits])
 def today(uid: UUID):
-
     return today_service.getTodayPage(uid)
 
 
@@ -100,6 +104,7 @@ def delete_habit(hid: UUID):
 
     return habit_service.deleteHabit(hid)
 
+"""
 
 # =============================
 # Habit Logging
@@ -108,4 +113,4 @@ def delete_habit(hid: UUID):
 @app.post("/habit-log")
 def log_habit(log: HabitLogCreate):
 
-    return habit_service.logHabit(log)"""
+    return habit_service.logHabit(log)

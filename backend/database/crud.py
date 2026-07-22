@@ -194,8 +194,87 @@ def create_HabitConfigAndCache(HabitConfig: models.HabitConfig):
             )
         conn.commit()
 
-def update_HabitCache(habit_cache: models.HabitCache):
-    ...
+def insert_HabitLog(log: models.HabitLogCreate):
+    with get_connection() as conn:
+        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
+
+            cur.execute(
+                """
+                INSERT INTO habit_logs
+                (
+                    habit_id,
+                    date,
+                    started_at,
+                    ended_at,
+                    duration,
+                    completed,
+                    scheduled
+                )
+                VALUES
+                (
+                    %s,
+                    CURRENT_DATE,
+                    %s,
+                    %s,
+                    %s,
+                    TRUE,
+                    TRUE
+                )
+                """,
+                (
+                    log.habit_id,
+                    log.started_at,
+                    log.ended_at,
+                    log.duration,
+                ),
+            )
+
+        conn.commit()
+
+
+def update_HabitLog(log: models.HabitLogCreate):
+    with get_connection() as conn:
+        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
+
+            cur.execute(
+                """
+                UPDATE habit_logs
+                SET
+                    started_at = %s,
+                    ended_at = %s,
+                    duration = %s,
+                    completed = TRUE
+                WHERE
+                    habit_id = %s
+                AND
+                    date = CURRENT_DATE;
+                                
+                """
+            ,(
+                log.started_at,
+                log.ended_at,
+                log.duration,
+                log.habit_id,
+            )
+            )
+
+        conn.commit()
+
+def habitLogExists(hid: UUID) -> bool:
+    with get_connection() as conn:
+        with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
+            cur.execute(
+                """
+                SELECT 1
+                FROM habit_logs
+                WHERE habit_id = %s
+                AND date = CURRENT_DATE;
+                """,
+            (hid,))
+            if cur.fetchone() :
+                return True 
+            else:
+                return False 
 
 
 

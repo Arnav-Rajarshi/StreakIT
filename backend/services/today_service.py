@@ -1,6 +1,7 @@
 import backend.database.crud as crud
 import datetime
 import backend.models as models
+from backend.database.db import get_connection
 
 def getTodaysHabits(uid):
     raw_habit_configs = crud.read_HabitConfigs(uid)
@@ -26,14 +27,31 @@ def getTodaysHabits(uid):
     filtered_habit_caches= [crud.read_HabitCache(i) for i in todays_hids]
 
     result=[]
-    for habit,cache in zip(filtered_habit_configs,filtered_habit_caches):
-        result.append(
-            models.TodaysHabits(
-                config=habit,
-                cache=cache
-            )
-        )
-    return result 
+
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+
+            for habit, cache in zip(filtered_habit_configs, filtered_habit_caches):
+
+                cur.execute("""
+                    SELECT completed
+                    FROM habit_logs
+                    WHERE habit_id = %s
+                    AND date = CURRENT_DATE
+                """, (habit.hid,))
+
+                row = cur.fetchone()
+
+                completed = False if row is None else row[0]
+
+                result.append(
+                    models.TodaysHabits(
+                        config=habit,
+                        cache=cache,
+                        completed=completed,
+                    )
+                )
+                
 #user = crud.read_UserDetails(user_name="mock1")
 #print(getTodaysHabits(user.uid))
 '''
@@ -64,7 +82,6 @@ TodaysHabit( (...),(...)) ,
 TodaysHabit( (...),(...))
 ]
 '''
-
 
 def getTodayPage(uid):
     """
@@ -98,8 +115,8 @@ def getTodayPage(uid):
     todays_habits = getTodaysHabits(uid)
     return todays_habits
 
- 
-
+from uuid import UUID
+print(getTodayPage(UUID("96939a0f-c697-4ce6-a962-d2859eecf1e9")))
         
 
 

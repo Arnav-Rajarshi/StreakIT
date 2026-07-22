@@ -1,28 +1,35 @@
 import 'dart:ui';
-
+import 'package:frontend/services/today_service.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/today_models.dart';
 import 'package:frontend/theme/app_theme.dart';
 
 /// The authenticated landing page. Data is local mock state until API wiring.
 class TodayHomePage extends StatefulWidget {
-  const TodayHomePage({super.key, this.username = 'Arnav'});
+  const TodayHomePage({
+    super.key,
+    required this.uid,
+    this.username = "Arnav",
+  });
 
+  final String uid;
   final String username;
 
   @override
   State<TodayHomePage> createState() => _TodayHomePageState();
 }
 
+
 class _TodayHomePageState extends State<TodayHomePage> {
   int _selectedNavIndex = 0;
   bool _contentVisible = false;
 
-  final _habits = <TodayHabit>[
-    TodayHabit(name: 'Gym', icon: Icons.local_fire_department_rounded,targetDuration: 60.00),
-    TodayHabit(name: 'LeetCode', icon: Icons.code_rounded,targetDuration: 90.00),
-    TodayHabit(name: 'Study', icon: Icons.auto_stories_rounded,targetDuration: 45.00),
-  ];
+  final TodayService _todayService = TodayService();
+
+  List<TodayHabit> _habits = [];
+
+  bool _isLoadingHabits = true;
+  String? _habitLoadError;
 
   final _tasks = <TodayTask>[
     TodayTask(title: 'Review system design notes'),
@@ -34,10 +41,43 @@ class _TodayHomePageState extends State<TodayHomePage> {
     TodayEvent(time: '6:00 PM', title: 'Evening walk'),
   ];
 
+  Future<void> _loadHabits() async {
+    try {
+      print("Loading habits for ${widget.uid}");
+
+      final habits = await _todayService.getTodayHabits(widget.uid);
+
+      print("Received ${habits.length} habits");
+
+      if (!mounted) return;
+
+      setState(() {
+        _habits = habits;
+        _isLoadingHabits = false;
+      });
+    } catch (e) {
+      print(e);
+
+      if (!mounted) return;
+
+      setState(() {
+        _habitLoadError = e.toString();
+        _isLoadingHabits = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => mounted ? setState(() => _contentVisible = true) : null);
+
+    _loadHabits();
+
+    Future.microtask(() {
+      if (mounted) {
+        setState(() => _contentVisible = true);
+      }
+    });
   }
 
   @override
@@ -62,15 +102,25 @@ class _TodayHomePageState extends State<TodayHomePage> {
                         opacity: _contentVisible ? 1 : 0,
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeOutCubic,
-                        child: _TodayContent(
-                          habits: _habits,
-                          tasks: _tasks,
-                          events: _events,
-                          onHabitComplete: _completeHabit,
-                          onTaskChanged: _toggleTask,
-                          onAddTask: _showTaskMessage,
-                          onAddEvent: _showEventMessage,
-                        ),
+                        child: _isLoadingHabits ? const Center(child: CircularProgressIndicator(),)
+                             : _habitLoadError != null ? Center(
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(24),
+                                                              child: Text(
+                                                                _habitLoadError!,
+                                                                textAlign: TextAlign.center,
+                                                              ),
+                                                            ),
+                                                          )
+                              : _TodayContent(
+                                      habits: _habits,
+                                      tasks: _tasks,
+                                      events: _events,
+                                      onHabitComplete: _completeHabit,
+                                      onTaskChanged: _toggleTask,
+                                      onAddTask: _showTaskMessage,
+                                      onAddEvent: _showEventMessage,
+                                    ),
                       ),
                     ),
                   ),
@@ -325,8 +375,8 @@ class HabitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<AppTheme>()!;
-    final details = habit.completed && habit.sessionDuration != null
-    ? 'Completed · ${habit.sessionDuration!.inMinutes} min session'
+    final details = habit.completed
+    ? 'Completed today'
     : 'Target · ${habit.targetDuration} min';
     return Material(
       color: Colors.transparent,
