@@ -115,7 +115,7 @@ class LoginPageState extends State<LoginPage> {
                                     await AuthService().login(request);
                                     if (!mounted) return;
                                     Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (_) => const HomePage()),
+                                      MaterialPageRoute(builder: (_) => const TodayHomePage()),
                                     );
                                   },
                                   child: const Text('Submit', style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700)),

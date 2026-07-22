@@ -14,19 +14,14 @@ class TodayHomePage extends StatefulWidget {
   State<TodayHomePage> createState() => _TodayHomePageState();
 }
 
-/// Kept as the app-facing home entry point for future authenticated routing.
-class HomePage extends TodayHomePage {
-  const HomePage({super.key});
-}
-
 class _TodayHomePageState extends State<TodayHomePage> {
   int _selectedNavIndex = 0;
   bool _contentVisible = false;
 
   final _habits = <TodayHabit>[
-    TodayHabit(name: 'Gym', icon: Icons.local_fire_department_rounded, scheduledStart: const TimeOfDay(hour: 6, minute: 0), scheduledEnd: const TimeOfDay(hour: 7, minute: 0)),
-    TodayHabit(name: 'LeetCode', icon: Icons.code_rounded, scheduledStart: const TimeOfDay(hour: 10, minute: 0), scheduledEnd: const TimeOfDay(hour: 11, minute: 0)),
-    TodayHabit(name: 'Study', icon: Icons.auto_stories_rounded, scheduledStart: const TimeOfDay(hour: 19, minute: 0), scheduledEnd: const TimeOfDay(hour: 20, minute: 30)),
+    TodayHabit(name: 'Gym', icon: Icons.local_fire_department_rounded,targetDuration: 60.00),
+    TodayHabit(name: 'LeetCode', icon: Icons.code_rounded,targetDuration: 90.00),
+    TodayHabit(name: 'Study', icon: Icons.auto_stories_rounded,targetDuration: 45.00),
   ];
 
   final _tasks = <TodayTask>[
@@ -94,9 +89,9 @@ class _TodayHomePageState extends State<TodayHomePage> {
 
   Future<void> _completeHabit(TodayHabit habit) async {
     if (habit.completed) return;
-    final start = await showTimePicker(context: context, initialTime: habit.scheduledStart, helpText: 'Select start time');
+    final start = await showTimePicker(context: context,initialTime: TimeOfDay.now(), helpText: 'Select start time');
     if (!mounted || start == null) return;
-    final end = await showTimePicker(context: context, initialTime: habit.scheduledEnd, helpText: 'Select end time');
+    final end = await showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: 'Select end time');
     if (!mounted || end == null) return;
 
     final duration = _durationBetween(start, end);
@@ -330,8 +325,9 @@ class HabitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<AppTheme>()!;
-    final schedule = '${habit.scheduledStart.format(context)} – ${habit.scheduledEnd.format(context)}';
-    final details = habit.completed && habit.sessionDuration != null ? 'Completed · ${habit.sessionDuration!.inMinutes} min session' : schedule;
+    final details = habit.completed && habit.sessionDuration != null
+    ? 'Completed · ${habit.sessionDuration!.inMinutes} min session'
+    : 'Target · ${habit.targetDuration} min';
     return Material(
       color: Colors.transparent,
       child: InkWell(

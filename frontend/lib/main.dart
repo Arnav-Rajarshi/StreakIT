@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/login_page.dart';
-import 'package:frontend/screens/today_home_page.dart';
 import 'package:frontend/theme/app_theme.dart';
 
 void main() {
@@ -54,8 +53,4 @@ void main() {
   ));
 }
 
-/// Compatibility entry point for the app's former placeholder home screen.
-class HomePage extends TodayHomePage {
-  const HomePage({super.key});
-}
 

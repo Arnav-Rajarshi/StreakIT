@@ -4,8 +4,7 @@ class TodayHabit {
   TodayHabit({
     required this.name,
     required this.icon,
-    required this.scheduledStart,
-    required this.scheduledEnd,
+    required this.targetDuration,
     this.completed = false,
     this.startTime,
     this.endTime,
@@ -14,8 +13,7 @@ class TodayHabit {
 
   final String name;
   final IconData icon;
-  final TimeOfDay scheduledStart;
-  final TimeOfDay scheduledEnd;
+  final num targetDuration;
   bool completed;
   TimeOfDay? startTime;
   TimeOfDay? endTime;
