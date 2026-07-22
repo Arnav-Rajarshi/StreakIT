@@ -39,6 +39,7 @@ class UserCreate {
   }
 }
 
+
 class LoginResponse {
   final String message;
   final String uid;

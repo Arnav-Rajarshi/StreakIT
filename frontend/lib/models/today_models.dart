@@ -79,35 +79,24 @@ class TodayHabit {
 /// Sent from Flutter when user completes a habit.
 /// ===========================================================================
 class HabitLogRequest {
+  final String habitId;
+  final String startedAt;
+  final String endedAt;
+  final int duration;
+
   HabitLogRequest({
     required this.habitId,
     required this.startedAt,
     required this.endedAt,
     required this.duration,
-    required this.completed,
-    required this.scheduled,
   });
 
-  final String habitId;
-  final DateTime startedAt;
-  final DateTime endedAt;
-
-  /// Minutes
-  final int duration;
-
-  final bool completed;
-  final bool scheduled;
-
-  Map<String, dynamic> toJson() {
-    return {
-      "habit_id": habitId,
-      "started_at": startedAt.toIso8601String(),
-      "ended_at": endedAt.toIso8601String(),
-      "duration": duration,
-      "completed": completed,
-      "scheduled": scheduled,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "habit_id": habitId,
+    "started_at": startedAt,
+    "ended_at": endedAt,
+    "duration": duration,
+  };
 }
 
 /// ===========================================================================

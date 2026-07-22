@@ -61,7 +61,7 @@ class UserCreate(BaseModel):
     password: str
 
 class LoginRequest(BaseModel):
-    userDetails: str
+    user_details: str
     password: str 
 
 class HabitLogCreate(BaseModel):

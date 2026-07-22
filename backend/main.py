@@ -49,7 +49,7 @@ def login(credentials: LoginRequest):
 
     user = auth_service.validate_user(
     password=credentials.password,
-    userDetails=credentials.userDetails
+    user_details=credentials.user_details
     )
 
     if user is None:

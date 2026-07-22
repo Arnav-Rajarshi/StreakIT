@@ -121,10 +121,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                       password: passwordController.text,
                                     );
 
-                                    await AuthService().signup(user);
+                                    final signupResponse = await AuthService().signup(user);
                                     if (!mounted) return;
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (_) => const TodayHomePage()),
+
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => TodayHomePage(
+                                          uid: signupResponse.uid,
+                                        ),
+                                      ),
                                     );
                                   },
                                   child: const Text('Sign Up', style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w700)),

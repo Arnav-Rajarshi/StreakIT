@@ -34,7 +34,7 @@ def create_user(user):
             )
 
 
-def validate_user(password: str, userDetails: str):
+def validate_user(password: str, user_details: str):
     with db.get_connection() as conn:
         with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
 
@@ -43,7 +43,7 @@ def validate_user(password: str, userDetails: str):
                 FROM users
                 WHERE email = %s
                    OR user_name = %s
-            """, (userDetails, userDetails))
+            """, (user_details, user_details))
 
             user = cur.fetchone()
 

@@ -148,13 +148,16 @@ class _TodayHomePageState extends State<TodayHomePage> {
     final shouldSave = await _showSessionConfirmation(habit, start, end, duration);
     if (!mounted || !shouldSave) return;
 
-    setState(() {
-      habit
-        ..startTime = start
-        ..endTime = end
-        ..sessionDuration = duration
-        ..completed = true;
-    });
+    final request = HabitLogRequest(
+      habitId: habit.id,
+      startedAt:
+          "${start.hour.toString().padLeft(2, '0')}:${start.minute.toString().padLeft(2, '0')}:00",
+      endedAt:
+          "${end.hour.toString().padLeft(2, '0')}:${end.minute.toString().padLeft(2, '0')}:00",
+      duration: duration.inMinutes,
+    );
+    await _todayService.logHabit(request);
+    await _loadHabits();
   }
 
   Duration _durationBetween(TimeOfDay start, TimeOfDay end) {
