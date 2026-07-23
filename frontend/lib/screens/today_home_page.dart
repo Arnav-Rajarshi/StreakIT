@@ -1,10 +1,10 @@
 import 'dart:ui';
+import 'package:frontend/screens/create_habit_page.dart';
 import 'package:frontend/screens/login_page.dart';
 import 'package:frontend/services/today_service.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/today_models.dart';
 import 'package:frontend/theme/app_theme.dart';
-import 'package:frontend/utils/app_icons.dart';
 
 /// The authenticated landing page. Data is local mock state until API wiring.
 class TodayHomePage extends StatefulWidget {
@@ -88,6 +88,26 @@ class _TodayHomePageState extends State<TodayHomePage> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
+
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => CreateHabitPage(username: widget.username),
+            ),
+          );
+        },
+        icon: const Icon(Icons.add),
+        label: const Text("Create Habit"),
+        backgroundColor: theme.accent,
+        foregroundColor: Colors.white,
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+      ),
+
       body: Container(
         decoration: BoxDecoration(gradient: theme.pageGradient),
         child: SafeArea(
