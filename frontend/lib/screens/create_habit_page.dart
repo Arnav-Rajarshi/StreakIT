@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/habit_create_models.dart';
 import 'package:frontend/screens/login_page.dart';
+import 'package:frontend/services/habitCreate_service.dart';
 import 'package:frontend/theme/app_theme.dart';
 import 'package:frontend/utils/app_icons.dart';
 import 'package:frontend/utils/habit_colors.dart';
 
 class CreateHabitPage extends StatefulWidget{
   
-  const CreateHabitPage({super.key , required this.username});
-  final String username; 
+  const CreateHabitPage({super.key , required this.username , required this.uid});
+  final String username;
+  final String uid; 
   
 
   @override
@@ -346,7 +348,8 @@ class _CreateHabitPageState extends State<CreateHabitPage>{
   }
 
 
-  void _createHabit() {
+  Future<void> _createHabit() async {
+      print("Calling creathabit API");
 
       final request = HabitCreateRequest(
           habitName: _habitNameController.text.trim(),
@@ -355,12 +358,19 @@ class _CreateHabitPageState extends State<CreateHabitPage>{
           trackOn: _selectedDays.toList()..sort(),
           targetDuration: _targetDuration.toInt(),
           minimumDays: _minimumDays.toInt(),
-          maximumConsecutiveMisses:
+          allowedConsecutiveMisses:
               _allowedMisses.toInt(),
       );
 
-      print(request.toJson());
-
+      try {
+            await HabitService.createHabit(widget.uid,request);
+            print("POP NOW");
+            if (!mounted) return;
+            Navigator.pop(context,true);
+          }
+          catch (e) {
+            debugPrint(e.toString());
+          }
   }
   
 

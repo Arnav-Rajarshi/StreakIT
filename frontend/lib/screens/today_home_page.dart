@@ -90,13 +90,23 @@ class _TodayHomePageState extends State<TodayHomePage> {
       backgroundColor: Colors.transparent,
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final created = await Navigator.push<bool>(
             context,
             MaterialPageRoute(
-              builder: (_) => CreateHabitPage(username: widget.username),
+              builder: (_) => CreateHabitPage(
+                username: widget.username,
+                uid: widget.uid,
+              ),
             ),
           );
+
+          print("returned from create Habit page");
+
+          if (created == true) {
+            print("reloading habits");
+            await _loadHabits();
+          }
         },
         icon: const Icon(Icons.add),
         label: const Text("Create Habit"),

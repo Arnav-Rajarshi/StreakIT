@@ -69,6 +69,15 @@ class HabitLogCreate(BaseModel):
     started_at: datetime.time
     ended_at: datetime.time
     duration: int
+
+class HabitCreate(BaseModel):
+    habit_name: str
+    icon: str
+    color: str
+    track_on: list[int]
+    minimum_days: int
+    allowed_consecutive_misses: int
+    target_duration_per_session: int
     
 #---------------------------------------
 # API RESPONSE MODELS

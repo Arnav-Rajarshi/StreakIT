@@ -277,4 +277,17 @@ def habitLogExists(hid: UUID) -> bool:
                 return False 
 
 
+def delete_Habit(hid):
 
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+
+            cur.execute(
+                """
+                DELETE FROM habit_config
+                WHERE hid = %s
+                """,
+                (hid,)
+            )
+
+        conn.commit()

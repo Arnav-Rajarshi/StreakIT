@@ -14,7 +14,7 @@ class HabitCreateRequest {
 
   final int minimumDays;
 
-  final int maximumConsecutiveMisses;
+  final int allowedConsecutiveMisses;
 
   const HabitCreateRequest({
 
@@ -30,7 +30,7 @@ class HabitCreateRequest {
 
     required this.minimumDays,
 
-    required this.maximumConsecutiveMisses,
+    required this.allowedConsecutiveMisses,
 
   });
 
@@ -51,8 +51,8 @@ class HabitCreateRequest {
 
       "minimum_days": minimumDays,
 
-      "maximum_consecutive_misses":
-          maximumConsecutiveMisses,
+      "allowed_consecutive_misses":
+          allowedConsecutiveMisses,
 
       "target_duration_per_session":
           targetDuration,

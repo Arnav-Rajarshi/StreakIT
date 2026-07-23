@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.models import (
     LoginRequest,
     UserCreate,
-    #HabitCreate,
+    HabitCreate,
     #HabitUpdate,
     HabitLogCreate,
     TodaysHabits,
@@ -92,25 +92,24 @@ def dashboard(uid: UUID):
 # =============================
 # Habits
 # =============================
+
+@app.post("/habits/{uid}")
+def create_habit(uid: UUID, habit: HabitCreate):
+
+    return habit_service.createHabit(uid, habit)
+
 """
-@app.post("/habits")
-def create_habit(habit: HabitCreate):
-
-    return habit_service.createHabit(habit)
-
-
 @app.put("/habits/{hid}")
 def update_habit(hid: UUID, habit: HabitUpdate):
 
     return habit_service.updateHabit(hid, habit)
-
+"""
 
 @app.delete("/habits/{hid}")
 def delete_habit(hid: UUID):
 
     return habit_service.deleteHabit(hid)
 
-"""
 
 # =============================
 # Habit Logging
