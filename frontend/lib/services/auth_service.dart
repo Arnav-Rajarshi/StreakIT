@@ -1,16 +1,17 @@
 import 'dart:convert';
+import 'package:frontend/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/models/auth_models.dart';
 
 
-final String baseUrl = 'http://127.0.0.1:8000';
+ 
 
 class AuthService {
 
     Future<LoginResponse> login(LoginRequest request) async {
 
     final response = await http.post(
-        Uri.parse("$baseUrl/login"),
+        Uri.parse("${ApiConfig.baseUrl}/login"),
         headers: {
           "Content-Type": "application/json",
         },
@@ -30,7 +31,7 @@ class AuthService {
      
     Future<LoginResponse> signup(UserCreate user) async {
     final response = await http.post(
-      Uri.parse("$baseUrl/signup"),
+      Uri.parse("${ApiConfig.baseUrl}/signup"),
       headers: {
         "Content-Type": "application/json",
       },

@@ -1,13 +1,13 @@
 import 'dart:convert';
+import 'package:frontend/config.dart';
 import 'package:http/http.dart' as http;
 import '../models/today_models.dart';
 
 class TodayService {
-  static const String baseUrl = "http://127.0.0.1:8000";
 
   Future<List<TodayHabit>> getTodayHabits(String uid) async {
     final response = await http.get(
-      Uri.parse("$baseUrl/today?uid=$uid"),
+      Uri.parse("${ApiConfig.baseUrl}/today?uid=$uid"),
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,7 +30,7 @@ class TodayService {
 
   Future<void> logHabit(HabitLogRequest request) async {
     final response = await http.post(
-      Uri.parse("$baseUrl/habit-log"),
+      Uri.parse("${ApiConfig.baseUrl}/habit-log"),
       headers: {
         "Content-Type": "application/json",
       },
