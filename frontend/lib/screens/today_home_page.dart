@@ -5,6 +5,7 @@ import 'package:frontend/services/today_service.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/today_models.dart';
 import 'package:frontend/theme/app_theme.dart';
+import 'package:frontend/screens/dashboard_page.dart';
 
 /// The authenticated landing page. Data is local mock state until API wiring.
 class TodayHomePage extends StatefulWidget {
@@ -164,7 +165,40 @@ class _TodayHomePageState extends State<TodayHomePage> {
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedNavIndex,
-        onSelected: (index) => setState(() => _selectedNavIndex = index),
+        onSelected: (index) async {
+          if (index == _selectedNavIndex) return;
+
+          switch (index) {
+            case 0:
+              break;
+
+            case 2:
+              await Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => DashboardPage(
+                    uid: widget.uid,
+                    username: widget.username,
+                  ),
+                ),
+              );
+              return;
+
+            case 1:
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Calendar coming soon")),
+              );
+              break;
+
+            case 3:
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("More coming soon")),
+              );
+              break;
+          }
+
+          setState(() => _selectedNavIndex = index);
+        },
       ),
     );
   }

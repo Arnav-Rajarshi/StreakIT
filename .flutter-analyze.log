@@ -1,0 +1,77 @@
+Analyzing StreakIT...                                           
+
+   info - The variable name 'user_name' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\auth_models.dart:23:16 - non_constant_identifier_names
+   info - The variable name 'user_name' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\auth_models.dart:28:19 - non_constant_identifier_names
+   info - The variable name 'user_name' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\auth_models.dart:46:16 - non_constant_identifier_names
+   info - The variable name 'user_name' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\auth_models.dart:51:19 - non_constant_identifier_names
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\auth_models.dart:56:3 - avoid_print
+   info - The variable name 'HeatmapData' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:10:19 - non_constant_identifier_names
+   info - The variable name 'GraphData' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:11:19 - non_constant_identifier_names
+   info - The variable name 'SummaryData' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:12:19 - non_constant_identifier_names
+  error - The name 'HeatmapData' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'HeatmapData' - frontend\lib\models\dashboard_models.dart:15:14 - non_type_as_type_argument
+   info - The variable name 'HeatmapData' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:15:27 - non_constant_identifier_names
+  error - The name 'GraphData' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'GraphData' - frontend\lib\models\dashboard_models.dart:16:14 - non_type_as_type_argument
+   info - The variable name 'GraphData' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:16:25 - non_constant_identifier_names
+  error - The name 'SummaryData' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'SummaryData' - frontend\lib\models\dashboard_models.dart:17:14 - non_type_as_type_argument
+   info - The variable name 'SummaryData' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:17:27 - non_constant_identifier_names
+  error - Instance members can't be accessed from a factory constructor. Try removing the reference to the instance member - frontend\lib\models\dashboard_models.dart:23:28 - instance_member_access_from_factory
+  error - The method 'fromJson' isn't defined for the type 'List'. Try correcting the name to the name of an existing method, or defining a method named 'fromJson' - frontend\lib\models\dashboard_models.dart:23:40 - undefined_method
+  error - Instance members can't be accessed from a factory constructor. Try removing the reference to the instance member - frontend\lib\models\dashboard_models.dart:26:28 - instance_member_access_from_factory
+  error - The method 'fromJson' isn't defined for the type 'List'. Try correcting the name to the name of an existing method, or defining a method named 'fromJson' - frontend\lib\models\dashboard_models.dart:26:38 - undefined_method
+  error - Instance members can't be accessed from a factory constructor. Try removing the reference to the instance member - frontend\lib\models\dashboard_models.dart:29:28 - instance_member_access_from_factory
+  error - The method 'fromJson' isn't defined for the type 'List'. Try correcting the name to the name of an existing method, or defining a method named 'fromJson' - frontend\lib\models\dashboard_models.dart:29:40 - undefined_method
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\dashboard_models.dart:33:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\dashboard_models.dart:34:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\dashboard_models.dart:35:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\dashboard_models.dart:36:7 - avoid_print
+   info - The variable name 'habit_id' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:44:19 - non_constant_identifier_names
+   info - The variable name 'habit_id' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:51:16 - non_constant_identifier_names
+   info - The variable name 'habit_id' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:70:19 - non_constant_identifier_names
+   info - The variable name 'consistency_score' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:72:19 - non_constant_identifier_names
+   info - The variable name 'habit_id' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:75:16 - non_constant_identifier_names
+   info - The variable name 'consistency_score' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:77:16 - non_constant_identifier_names
+   info - The variable name 'HabitName' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:90:19 - non_constant_identifier_names
+   info - The variable name 'HabitColor' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:91:19 - non_constant_identifier_names
+   info - The variable name 'HabitIcon' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:92:19 - non_constant_identifier_names
+   info - The variable name 'curr_streak' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:93:19 - non_constant_identifier_names
+   info - The variable name 'best_streak' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:94:19 - non_constant_identifier_names
+   info - The variable name 'avg_session_duration' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:95:19 - non_constant_identifier_names
+   info - The variable name 'total_sessions' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:96:19 - non_constant_identifier_names
+   info - The variable name 'total_duration' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:97:19 - non_constant_identifier_names
+   info - The variable name 'td_week' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:98:19 - non_constant_identifier_names
+   info - The variable name 'td_month' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:99:19 - non_constant_identifier_names
+   info - The variable name 'td_year' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:100:19 - non_constant_identifier_names
+   info - The variable name 'HabitName' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:103:16 - non_constant_identifier_names
+   info - The variable name 'HabitColor' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:104:16 - non_constant_identifier_names
+   info - The variable name 'HabitIcon' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:105:16 - non_constant_identifier_names
+   info - The variable name 'curr_streak' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:106:13 - non_constant_identifier_names
+   info - The variable name 'best_streak' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:107:13 - non_constant_identifier_names
+   info - The variable name 'avg_session_duration' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:108:16 - non_constant_identifier_names
+   info - The variable name 'total_sessions' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:109:13 - non_constant_identifier_names
+   info - The variable name 'total_duration' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:110:13 - non_constant_identifier_names
+   info - The variable name 'td_week' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:111:13 - non_constant_identifier_names
+   info - The variable name 'td_month' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:112:13 - non_constant_identifier_names
+   info - The variable name 'td_year' isn't a lowerCamelCase identifier. Try changing the name to follow the lowerCamelCase style - frontend\lib\models\dashboard_models.dart:113:13 - non_constant_identifier_names
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\today_models.dart:59:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\today_models.dart:60:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\today_models.dart:61:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\models\today_models.dart:62:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\create_habit_page.dart:352:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\create_habit_page.dart:367:13 - avoid_print
+warning - The value of the field '_dashboardPage' isn't used. Try removing the field, or using it - frontend\lib\screens\dashboard_page.dart:28:23 - unused_field
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\login_page.dart:117:37 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\login_page.dart:118:37 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\login_page.dart:119:37 - avoid_print
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check. Guard a 'State.context' use with a 'mounted' check on the State, and other BuildContext use with a 'mounted' check on the BuildContext - frontend\lib\screens\login_page.dart:123:50 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check. Guard a 'State.context' use with a 'mounted' check on the State, and other BuildContext use with a 'mounted' check on the BuildContext - frontend\lib\screens\signup_page.dart:141:39 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check. Guard a 'State.context' use with a 'mounted' check on the State, and other BuildContext use with a 'mounted' check on the BuildContext - frontend\lib\screens\signup_page.dart:151:58 - use_build_context_synchronously
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\today_home_page.dart:48:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\today_home_page.dart:52:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\today_home_page.dart:61:7 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\today_home_page.dart:104:11 - avoid_print
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\screens\today_home_page.dart:107:13 - avoid_print
+   info - Unnecessary use of multiple underscores. Try using '_' - frontend\lib\screens\today_home_page.dart:500:39 - unnecessary_underscores
+   info - Don't invoke 'print' in production code. Try using a logging framework - frontend\lib\services\auth_service.dart:25:7 - avoid_print
+   info - The file name 'habitCreate_service.dart' isn't a lower_case_with_underscores identifier. Try changing the name to follow the lower_case_with_underscores style - frontend\lib\services\habitCreate_service.dart:1:1 - file_names
+
+73 issues found. (ran in 1.9s)
